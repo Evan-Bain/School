@@ -1,8 +1,5 @@
 // created by Evan Bain on 11/19/23
-
-// NOTE: IDE may give warning that 'arr' leaks memory;
-// however, this is false: realloc frees the previous used memory of 'arr'
-// before assigning new memory.
+// deletes element from dynamically created array
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,15 +32,10 @@ int main() {
     printf("Removing Element = %d.\n", arr[rmIndex]);
 
     // remove chosen element
-    int* temp = malloc((size - 1) * sizeof(int));
-
-    for(int i = 0; i < size; i++) {
-        if(rmIndex == i) continue; // do not add element chosen to remove
-
-        temp[i] = arr[i];
+    for(int i = rmIndex; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
     }
-    arr = realloc(temp, (size - 1) * sizeof(int));
-    free(temp);
+    arr = realloc(arr, (size - 1) * sizeof(int));
 
     // print new array
     printf("Update Array Add\n");
